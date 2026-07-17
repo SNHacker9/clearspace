@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clearspace</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background" aria-hidden="true">
+      <div class="sky"></div>
+      <img id="background-image" hidden alt="" />
+      <video id="background-video" hidden muted loop playsinline></video>
+      <div class="texture"></div>
+    </div>
+
+    <main>
+      <header class="topbar">
+        <nav id="page-tabs" class="page-tabs" aria-label="Bookmark pages"></nav>
+      </header>
+
+      <form id="search-form" class="search" role="search">
+        <span class="search-icon">⌕</span>
+        <input id="search-input" autocomplete="off" placeholder="Search the web…" aria-label="Search Google" />
+        <button title="Search Google" aria-label="Search Google" type="submit">G</button>
+      </form>
+
+      <section id="bookmark-section" class="bookmark-section" aria-live="polite"></section>
+    </main>
+
+    <div class="actions">
+      <button id="edit-page" class="round-button" title="Edit bookmarks" aria-label="Edit bookmarks">☰</button>
+      <button id="open-settings" class="round-button accent" title="Customize" aria-label="Customize page">⚙</button>
+    </div>
+
+    <aside id="settings" class="settings-panel" aria-label="Customize homepage" aria-hidden="true">
+      <div class="panel-heading"><h2>Customize</h2><button class="close" data-close="settings" aria-label="Close">×</button></div>
+      <p class="panel-copy">Make this tab feel like yours.</p>
+      <label class="field-label" for="background-type">Background</label>
+      <select id="background-type">
+        <option value="sky">Animated sky</option>
+        <option value="image">Image URL</option>
+        <option value="video">Video URL</option>
+        <option value="upload">Upload image, GIF, or video</option>
+      </select>
+      <div class="background-presets" aria-label="Built-in backgrounds">
+        <button class="preset selected" data-preset="sky" title="Animated sky">Sky</button>
+        <button class="preset" data-preset="aurora" title="Aurora gradient">Aurora</button>
+        <button class="preset" data-preset="sunset" title="Sunset gradient">Sunset</button>
+      </div>
+      <div id="url-wrap" class="control-wrap">
+        <label class="field-label url-label" for="background-url">Image or video URL</label>
+        <input id="background-url" type="url" placeholder="Direct image or video URL" />
+        <button id="apply-url" class="primary">Apply</button>
+      </div>
+      <p id="background-feedback" class="background-feedback" hidden></p>
+      <div id="upload-wrap" class="control-wrap" hidden>
+        <input id="background-upload" type="file" accept="image/*,video/*" />
+        <small>GIFs and short videos animate automatically. Files stay in this browser profile.</small>
+      </div>
+      <label class="field-label" for="overlay-range">Readability overlay</label>
+      <input id="overlay-range" type="range" min="0" max="75" value="28" />
+      <button id="reset-background" class="text-button">Reset background</button>
+      <div class="backup-tools">
+        <button id="export-data" class="secondary">Export backup</button>
+        <button id="import-data" class="secondary">Import backup</button>
+        <input id="import-file" type="file" accept="application/json" hidden />
+      </div>
+    </aside>
+
+    <dialog id="bookmark-dialog">
+      <form id="bookmark-form" method="dialog">
+        <div class="dialog-heading"><h2 id="bookmark-title">Add bookmark</h2><button type="button" class="close" data-close="bookmark-dialog" aria-label="Close">×</button></div>
+        <input id="bookmark-id" type="hidden" />
+        <label>Name<input id="bookmark-name" required maxlength="48" placeholder="e.g. LeetCode" /></label>
+        <label>Address<input id="bookmark-url" required type="url" placeholder="https://example.com" /></label>
+        <div class="dialog-actions"><button type="button" id="delete-bookmark" class="danger" hidden>Delete</button><span></span><button type="button" class="secondary" data-close="bookmark-dialog">Cancel</button><button class="primary" value="save">Save</button></div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script src="newtab.js"></script>
+  </body>
+</html>
